@@ -114,7 +114,12 @@ defmodule Notifier.Board do
 
   """
   def list_columns do
-    Repo.all(Column)
+    Repo.all(Column, preload: [:cards])
+  end
+
+  def list_columns(:preload_cards) do
+    columns = Repo.all(Column)
+    Repo.preload(columns, [:cards])
   end
 
   @doc """

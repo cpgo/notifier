@@ -4,10 +4,8 @@ defmodule Notifier.Repo.Migrations.CreateCards do
   def change do
     create table(:cards) do
       add :body, :string
-      add :column_id, references(:columns), null: true
+      add :column_id, references(:columns), null: false, default: 1
       timestamps()
     end
-
-    create unique_index(:cards, [:column_id])
   end
 end

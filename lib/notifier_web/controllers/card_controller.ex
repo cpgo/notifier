@@ -6,7 +6,8 @@ defmodule NotifierWeb.CardController do
 
   def index(conn, _params) do
     cards = Board.list_cards()
-    render(conn, "index.html", cards: cards)
+    columns = Board.list_columns(:preload_cards)
+    render(conn, "index.html", cards: cards, columns: columns)
   end
 
   def new(conn, _params) do

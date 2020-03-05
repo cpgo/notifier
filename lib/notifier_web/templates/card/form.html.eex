@@ -9,7 +9,7 @@
   <%= text_input f, :body %>
 
   <%= label f, :column %>
-  <%= select f, :column_id, Enum.map(@columns, fn c -> {c.name, c.id} end), prompt: "Backlog" %>
+  <%= select f, :column_id, Enum.map(@columns, fn c -> {c.name, c.id} end) %>
   <%= error_tag f, :body %>
 
   <div>
