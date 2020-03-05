@@ -1,0 +1,5 @@
+<h1>Edit Column</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.column_path(@conn, :update, @column)) %>
+
+<span><%= link "Back", to: Routes.column_path(@conn, :index) %></span>

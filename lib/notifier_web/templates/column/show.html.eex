@@ -1,0 +1,13 @@
+<h1>Show Column</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @column.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.column_path(@conn, :edit, @column) %></span>
+<span><%= link "Back", to: Routes.column_path(@conn, :index) %></span>

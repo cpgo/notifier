@@ -1,0 +1,26 @@
+<h1>Listing Columns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for column <- @columns do %>
+    <tr>
+      <td><%= column.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.column_path(@conn, :show, column) %></span>
+        <span><%= link "Edit", to: Routes.column_path(@conn, :edit, column) %></span>
+        <span><%= link "Delete", to: Routes.column_path(@conn, :delete, column), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Column", to: Routes.column_path(@conn, :new) %></span>

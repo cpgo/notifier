@@ -15,7 +15,8 @@ defmodule NotifierWeb.Router do
 
   scope "/", NotifierWeb do
     pipe_through :browser
-
+    resources "/cards", CardController
+    resources "/columns", ColumnController
     get "/", PageController, :index
   end
 
