@@ -36,7 +36,8 @@ defmodule NotifierWeb.CardController do
   def edit(conn, %{"id" => id}) do
     card = Board.get_card!(id)
     changeset = Board.change_card(card)
-    render(conn, "edit.html", card: card, changeset: changeset)
+    columns = Board.list_columns()
+    render(conn, "edit.html", card: card, changeset: changeset, columns: columns)
   end
 
   def update(conn, %{"id" => id, "card" => card_params}) do

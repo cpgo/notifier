@@ -4,7 +4,7 @@ defmodule Notifier.Repo.Migrations.CreateCards do
   def change do
     create table(:cards) do
       add :body, :string
-      add :column_id, references(:columns), null: false, default: 1
+      add :column_id, references(:columns), null: false
       timestamps()
     end
   end

@@ -11,7 +11,8 @@ defmodule Notifier.Application do
       # Start the Ecto repository
       Notifier.Repo,
       # Start the endpoint when the application starts
-      NotifierWeb.Endpoint
+      NotifierWeb.Endpoint,
+      Notifier.Board.Listener
       # Starts a worker by calling: Notifier.Worker.start_link(arg)
       # {Notifier.Worker, arg},
     ]

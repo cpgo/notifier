@@ -10,9 +10,6 @@ defmodule Notifier.Board.Card do
 
   @doc false
   def changeset(card, attrs) do
-  IO.puts("--------------------")
-  IO.inspect(attrs)
-  IO.puts("--------------------")
     card
     |> cast(attrs, [:body, :column_id])
     |> cast_assoc(:column)
