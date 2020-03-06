@@ -83,10 +83,6 @@ channel.on('trigger', (res) => {
   if (res.action === "UPDATE") {
     let targetColumn = document.getElementById(`column-${res.data.column_id}`)
     let card = document.getElementById(`card-${res.data.id}`)
-    console.log(res)
-    console.log(targetColumn)
-    console.log(card)
-    card.parentElement.removeChild(card)
     targetColumn.appendChild(card)
   }
 })
