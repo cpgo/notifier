@@ -2,7 +2,7 @@ defmodule NotifierWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", NotifierWeb.RoomChannel
+  channel "events:*", NotifierWeb.EventChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

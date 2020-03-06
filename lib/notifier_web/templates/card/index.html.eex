@@ -32,9 +32,9 @@
 		<%= for column <- @columns do %>
 			<div class="list">
 				<header> <%= column.name %> </header>
-				<ul>
+				<ul id="column-<%= column.id %>">
 					<%= for card <- column.cards do %>
-						<li><%= card.body %>
+						<li id="card-<%= card.id %>"><%= card.body %>
 					<% end %>
 				</ul>
 					<footer>Add a card...</footer>

@@ -8,7 +8,8 @@
 // from the params if you are not using authentication.
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+// let socket = new Socket("/socket", {params: {token: window.userToken}})
+let socket = new Socket("/socket", {params: {}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -55,9 +56,39 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("events:*", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
+
+channel.push('events:*', { message: "Hello Phoenix!" })
+
+
+
+// %{
+//   action: "INSERT",
+//   data: %{
+//     body: "name",
+//     column_id: 1,
+//     id: 18,
+//     inserted_at: "2020-03-06T00:10:45",
+//     updated_at: "2020-03-06T00:10:45"
+//   },
+//   table: "cards"
+// }
+
+channel.on('trigger', (res) => {
+  console.log(res)
+  if (res.action === "UPDATE") {
+    let targetColumn = document.getElementById(`column-${res.data.column_id}`)
+    let card = document.getElementById(`card-${res.data.id}`)
+    console.log(res)
+    console.log(targetColumn)
+    console.log(card)
+    card.parentElement.removeChild(card)
+    targetColumn.appendChild(card)
+  }
+})
 
 export default socket

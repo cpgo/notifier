@@ -29,6 +29,7 @@ defmodule Notifier.Board.Listener do
       |> Logger.info()
 
       IO.inspect(data)
+      NotifierWeb.Endpoint.broadcast!("events:*", "trigger", data)
       {:noreply, :event_handled}
     else
       error -> {:stop, error, []}
