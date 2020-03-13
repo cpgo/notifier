@@ -34,10 +34,11 @@
 				<header> <%= column.name %> </header>
 				<ul id="column-<%= column.id %>">
 					<%= for card <- column.cards do %>
-						<li id="card-<%= card.id %>"><%= card.body %>
+						<li id="card-<%= card.id %>" draggable="true" ><%= card.body %>
 					<% end %>
 				</ul>
-					<footer>Add a card...</footer>
+					<footer><%= render "form.html", Map.put(assigns, :action, Routes.card_path(@conn, :create)) %>
+</footer>
 			</div>
 		<% end %>
 	</div>

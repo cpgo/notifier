@@ -16,3 +16,4 @@ defmodule Notifier.Board.Card do
     |> validate_required([:body])
   end
 end
+

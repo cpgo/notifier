@@ -6,10 +6,10 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import {Socket} from "phoenix"
+import { Socket } from "phoenix";
 
 // let socket = new Socket("/socket", {params: {token: window.userToken}})
-let socket = new Socket("/socket", {params: {}})
+let socket = new Socket("/socket", { params: {} });
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -53,18 +53,20 @@ let socket = new Socket("/socket", {params: {}})
 //     end
 //
 // Finally, connect to the socket:
-socket.connect()
+socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("events:*", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+let channel = socket.channel("events:*", {});
+channel
+  .join()
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp);
+  })
+  .receive("error", resp => {
+    console.log("Unable to join", resp);
+  });
 
-
-channel.push('events:*', { message: "Hello Phoenix!" })
-
-
+channel.push("events:*", { message: "Hello Phoenix!" });
 
 // %{
 //   action: "INSERT",
@@ -78,13 +80,52 @@ channel.push('events:*', { message: "Hello Phoenix!" })
 //   table: "cards"
 // }
 
-channel.on('trigger', (res) => {
-  console.log(res)
+const allowDrop = (ev) => {
+  ev.preventDefault()
+}
+
+const drag = (ev) => {
+  ev.dataTransfer.setData("text", ev.target.id)
+}
+
+const drop = (ev) => {
+  ev.preventDefault()
+  let data = ev.dataTransfer.getData("text")
+  ev.target.appendChild(document.getElementById(data))
+}
+
+channel.on("trigger", res => {
+  console.log(res);
   if (res.action === "UPDATE") {
-    let targetColumn = document.getElementById(`column-${res.data.column_id}`)
-    let card = document.getElementById(`card-${res.data.id}`)
+    let targetColumn = document.getElementById(`column-${res.data.column_id}`);
+    let card = document.getElementById(`card-${res.data.id}`);
+    card.draggable = true
+    targetColumn.appendChild(card);
+  }
+});
+
+channel.on("trigger", res => {
+  if (res.action === "INSERT") {
+    let targetColumn = document.getElementById(`column-${res.data.column_id}`);
+    var card = document.createElement("li");
+    card.id = `card-${res.data.id}`;
+    card.draggable = true
+    card.textContent = res.data.body;
+    card.addEventListener("dragstart", (e) => console.log(e));
     targetColumn.appendChild(card)
   }
-})
+});
 
-export default socket
+channel.on("trigger", res => {
+  if (res.action === "DELETE") {
+    let card = document.getElementById(`card-${res.data.id}`);
+    card.remove()
+  }
+});
+
+export const dragStarted = (event) => {
+  console.log(event)
+  event.dataTransfer.setData("Text", event.target.id)
+}
+
+export default socket;

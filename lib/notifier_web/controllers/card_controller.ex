@@ -7,7 +7,8 @@ defmodule NotifierWeb.CardController do
   def index(conn, _params) do
     cards = Board.list_cards()
     columns = Board.list_columns(:preload_cards)
-    render(conn, "index.html", cards: cards, columns: columns)
+    changeset = Board.change_card(%Card{})
+    render(conn, "index.html", cards: cards, columns: columns, changeset: changeset)
   end
 
   def new(conn, _params) do
@@ -17,6 +18,7 @@ defmodule NotifierWeb.CardController do
   end
 
   def create(conn, %{"card" => card_params}) do
+    columns = Board.list_columns()
     case Board.create_card(card_params) do
       {:ok, _card} ->
         conn
