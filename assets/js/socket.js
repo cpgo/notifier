@@ -125,7 +125,14 @@ channel.on("trigger", res => {
 
 export const dragStarted = (event) => {
   console.log(event)
-  event.dataTransfer.setData("Text", event.target.id)
+  event.dataTransfer.setData("text/html", event.target.id)
+}
+
+export const dropped = (event) => {
+  event.preventDefault()
+  const id = event.target.closest(".list").querySelector("ul").dataset.id
+  console.log(id)
+  console.log(event)
 }
 
 export default socket;

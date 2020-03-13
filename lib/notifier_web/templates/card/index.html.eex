@@ -30,9 +30,9 @@
 	<nav class="navbar board">Board bar</nav>
 	<div class="lists">
 		<%= for column <- @columns do %>
-			<div class="list">
+			<div class="list droptarget">
 				<header> <%= column.name %> </header>
-				<ul id="column-<%= column.id %>">
+				<ul id="column-<%= column.id %>" data-id="<%= column.id %>" class="column">
 					<%= for card <- column.cards do %>
 						<li id="card-<%= card.id %>" draggable="true" ><%= card.body %>
 					<% end %>
