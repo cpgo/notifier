@@ -130,9 +130,12 @@ export const dragStarted = (event) => {
 
 export const dropped = (event) => {
   event.preventDefault()
-  const id = event.target.closest(".list").querySelector("ul").dataset.id
-  console.log(id)
   console.log(event)
+  // const cardId = event.originalTarget.dataset.id
+  // const columnId = event.target.closest(".list").querySelector("ul").dataset.id
+  // console.log(cardId)
+  // console.log(columnId)
+  // console.log(event)
 }
 
 export default socket;

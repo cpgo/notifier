@@ -3,11 +3,12 @@ defmodule NotifierWeb.CardControllerTest do
 
   alias Notifier.Board
 
-  @create_attrs %{body: "some body"}
-  @update_attrs %{body: "some updated body"}
+  @create_attrs %{body: "some body", column_id: 666}
+  @update_attrs %{body: "some updated body", column_id: 123}
   @invalid_attrs %{body: nil}
 
   def fixture(:card) do
+    {:ok, column} = Board.create_column(%{id: 666, body: "some body"})
     {:ok, card} = Board.create_card(@create_attrs)
     card
   end

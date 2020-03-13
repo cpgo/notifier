@@ -34,7 +34,7 @@
 				<header> <%= column.name %> </header>
 				<ul id="column-<%= column.id %>" data-id="<%= column.id %>" class="column">
 					<%= for card <- column.cards do %>
-						<li id="card-<%= card.id %>" draggable="true" ><%= card.body %>
+						<li id="card-<%= card.id %>" draggable="true" data-id="<%= card.id %>" ><%= card.body %>
 					<% end %>
 				</ul>
 					<footer><%= render "form.html", Map.put(assigns, :action, Routes.card_path(@conn, :create)) %>

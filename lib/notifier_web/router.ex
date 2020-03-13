@@ -20,6 +20,12 @@ defmodule NotifierWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/json", NotifierWeb.Json do
+    pipe_through :api
+
+    resources "/cards", CardController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", NotifierWeb do
   #   pipe_through :api
