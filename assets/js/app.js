@@ -15,17 +15,6 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 import socket from "./socket"
-import { dragStarted, dropped } from "./socket"
+import { addEvents } from "./dragDrop"
 
-document.addEventListener("dragover", function(event) {
-  event.preventDefault();
-});
-Array.from(document.querySelectorAll('[draggable]')).map((card) => {
-  card.addEventListener("dragstart", dragStarted);
-})
-
-document.addEventListener("dragover", function(event) {
-  event.preventDefault();
-});
-
-document.addEventListener("drop", dropped)
+addEvents()

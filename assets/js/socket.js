@@ -68,31 +68,6 @@ channel
 
 channel.push("events:*", { message: "Hello Phoenix!" });
 
-// %{
-//   action: "INSERT",
-//   data: %{
-//     body: "name",
-//     column_id: 1,
-//     id: 18,
-//     inserted_at: "2020-03-06T00:10:45",
-//     updated_at: "2020-03-06T00:10:45"
-//   },
-//   table: "cards"
-// }
-
-const allowDrop = (ev) => {
-  ev.preventDefault()
-}
-
-const drag = (ev) => {
-  ev.dataTransfer.setData("text", ev.target.id)
-}
-
-const drop = (ev) => {
-  ev.preventDefault()
-  let data = ev.dataTransfer.getData("text")
-  ev.target.appendChild(document.getElementById(data))
-}
 
 channel.on("trigger", res => {
   console.log(res);
@@ -123,30 +98,5 @@ channel.on("trigger", res => {
   }
 });
 
-export const dragStarted = (event) => {
-  event.dataTransfer.setData("text/plain", event.target.dataset.id)
-}
-
-export const dropped = (event) => {
-  event.preventDefault()
-  const cardId = event.dataTransfer.getData("text/plain")
-  const columnId = event.target.closest(".list").querySelector("ul").dataset.id
-  var headers = new Headers();
-  headers.append("Content-Type", "application/json");
-
-  var payload = JSON.stringify({ "card": { "column_id": columnId } });
-
-  var requestOptions = {
-    method: 'PUT',
-    headers: headers,
-    body: payload,
-    redirect: 'follow'
-  };
-
-  fetch(`/json/cards/${cardId}`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
 
 export default socket;
