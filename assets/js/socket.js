@@ -124,18 +124,29 @@ channel.on("trigger", res => {
 });
 
 export const dragStarted = (event) => {
-  console.log(event)
-  event.dataTransfer.setData("text/html", event.target.id)
+  event.dataTransfer.setData("text/plain", event.target.dataset.id)
 }
 
 export const dropped = (event) => {
   event.preventDefault()
-  console.log(event)
-  // const cardId = event.originalTarget.dataset.id
-  // const columnId = event.target.closest(".list").querySelector("ul").dataset.id
-  // console.log(cardId)
-  // console.log(columnId)
-  // console.log(event)
+  const cardId = event.dataTransfer.getData("text/plain")
+  const columnId = event.target.closest(".list").querySelector("ul").dataset.id
+  var headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  var payload = JSON.stringify({ "card": { "column_id": columnId } });
+
+  var requestOptions = {
+    method: 'PUT',
+    headers: headers,
+    body: payload,
+    redirect: 'follow'
+  };
+
+  fetch(`/json/cards/${cardId}`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 }
 
 export default socket;
