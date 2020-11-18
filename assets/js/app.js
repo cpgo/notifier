@@ -10,6 +10,7 @@ import css from "../css/app.css"
 // Import dependencies
 //
 import "phoenix_html"
+import 'alpinejs'
 
 // Import local files
 //
@@ -18,3 +19,18 @@ import socket from "./socket"
 import { addEvents } from "./dragDrop"
 
 addEvents()
+
+window.cardForm = (current_column) => {
+  return {
+    form: {
+      card: {
+        body: "",
+        column_id: current_column
+      }
+    },
+    submit() {
+      // logica de ajax aqui
+      console.log(this)
+    }
+  }
+}

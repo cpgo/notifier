@@ -1,18 +1,20 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="alpine-form" x-data="cardForm()" x-init="() => { form.card.column_id = <%= @current_column %> }">
+  <%= form_for @changeset, @action, ["@submit.prevent": "submit()"], fn f -> %>
+    <%= if @changeset.action do %>
+      <div class="alert alert-danger">
+        <p>Oops, something went wrong! Please check the errors below.</p>
+      </div>
+    <% end %>
+
+    <%= label f, :body %>
+    <%= text_input f, :body, ["x-model": "form.card.body"] %>
+
+    <%= label f, :column %>
+    <%= text_input f, :column_id, [value:  @current_column] %>
+    <%= error_tag f, :body %>
+
+    <div>
+      <%= submit "Save" %>
     </div>
   <% end %>
-
-  <%= label f, :body %>
-  <%= text_input f, :body %>
-
-  <%= label f, :column %>
-  <%= select f, :column_id, Enum.map(@columns, fn c -> {c.name, c.id} end) %>
-  <%= error_tag f, :body %>
-
-  <div>
-    <%= submit "Save" %>
-  </div>
-<% end %>
+</div>
